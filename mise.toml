@@ -1,0 +1,37 @@
+[tools]
+node = "latest"
+python = "latest"
+# Install watchexec for file watching
+watchexec = "latest"
+# Note: inklecate is installed manually to ~/.local/bin from GitHub releases
+
+[tasks.build]
+description = "Compile Ink story files to JSON"
+run = "./scripts/build.sh"
+
+[tasks.check]
+description = "Validate Ink syntax without building"
+run = "./scripts/check.sh"
+
+[tasks.serve]
+description = "Start local development server on port 8000"
+run = "python3 -m http.server 8000"
+
+[tasks.watch]
+description = "Watch Ink files and rebuild on changes"
+run = "watchexec -e ink 'mise run build'"
+
+[tasks.dev]
+description = "Start development mode with file watching and server"
+depends = ["watch", "serve"]
+
+[tasks.clean]
+description = "Remove generated files"
+run = "rm -rf dist/ story.json index.html && echo 'Cleaned generated files'"
+
+[tasks.export]
+description = "Export story to Inky-compatible HTML (requires manual Inky export)"
+run = "mise run build && echo '' && echo 'To create a playable HTML file:' && echo '1. Open story.ink in Inky (https://www.inklestudios.com/ink/)' && echo '2. Go to File → Export for Web → select this folder' && echo '3. This will create index.html with the compiled game'"
+
+[settings]
+experimental = true  # Enable latest task features

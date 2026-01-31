@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Puffin Post - Interactive Fiction</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        #story {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            min-height: 300px;
+        }
+        .choice {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            text-align: left;
+        }
+        .choice:hover {
+            background: #2980b9;
+        }
+        #output {
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+        }
+        .status {
+            color: #666;
+            font-style: italic;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐧 The Puffin Post</h1>
+    <div id="story">
+        <div id="output">Loading story...</div>
+        <div id="choices"></div>
+    </div>
+    <div class="status">
+        <strong>Development Mode:</strong> Story loaded from dist/story.json<br>
+        Edit <code>story.ink</code> and run <code>mise run build</code> to update
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/inkjs@2.2.5/dist/ink-full.min.js"></script>
+    <script>
+        let story = null;
+        
+        async function loadStory() {
+            try {
+                const response = await fetch('dist/story.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const json = await response.json();
+                story = new inkjs.Story(json);
+                continueStory();
+            } catch (error) {
+                document.getElementById('output').innerHTML = `
+                    <strong>Error loading story:</strong><br>
+                    ${error.message}<br><br>
+                    Make sure you've built the story with:<br>
+                    <code>mise run build</code>
+                `;
+            }
+        }
+        
+        function continueStory() {
+            const outputDiv = document.getElementById('output');
+            const choicesDiv = document.getElementById('choices');
+            
+            // Clear previous choices
+            choicesDiv.innerHTML = '';
+            
+            // Continue story until we hit a choice or the end
+            let storyText = '';
+            while (story.canContinue) {
+                storyText += story.Continue();
+            }
+            
+            // Append text (preserving previous content)
+            if (storyText) {
+                if (outputDiv.innerHTML === 'Loading story...') {
+                    outputDiv.innerHTML = '';
+                }
+                const paragraph = document.createElement('div');
+                paragraph.innerHTML = storyText.trim().replace(/\n/g, '<br>');
+                paragraph.style.marginBottom = '20px';
+                outputDiv.appendChild(paragraph);
+            }
+            
+            // Show choices
+            if (story.currentChoices.length > 0) {
+                story.currentChoices.forEach((choice, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'choice';
+                    button.textContent = choice.text;
+                    button.onclick = () => {
+                        story.ChooseChoiceIndex(index);
+                        continueStory();
+                    };
+                    choicesDiv.appendChild(button);
+                });
+            } else {
+                // End of story
+                const endDiv = document.createElement('div');
+                endDiv.style.color = '#666';
+                endDiv.style.fontStyle = 'italic';
+                endDiv.style.marginTop = '20px';
+                endDiv.textContent = '— The End —';
+                outputDiv.appendChild(endDiv);
+            }
+        }
+        
+        // Load story when page loads
+        loadStory();
+    </script>
+</body>
+</html>

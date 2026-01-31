@@ -15,12 +15,27 @@ the-puffin-post/
 
 ## Getting Started
 
+### Prerequisites
+
+Install [mise](https://mise.jdx.dev/) for tool management:
+```bash
+brew install mise        # macOS with Homebrew
+mise install             # Install all tools (node, python, inklecate)
+```
+
+### Development Commands
+
+- `mise run build` - Compile Ink files to JSON
+- `mise run dev` - Watch files and serve locally (http://localhost:8000)
+- `mise run serve` - Start local server only
+- `mise run check` - Validate Ink syntax
+- `mise run clean` - Remove generated files
+
+### Manual Workflow (No Mise)
+
 1. **Download Inky** (the Ink editor): https://www.inklestudios.com/ink/
-
 2. **Open `story.ink`** in Inky
-
 3. **Write your story** - see the examples in story.ink to learn the syntax
-
 4. **Export to web**: File → Export for Web → choose your project folder
 
 ## Writing Your Story

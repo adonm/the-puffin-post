@@ -4,6 +4,8 @@
 VAR player_name = ""
 VAR has_map = false
 VAR fish_count = 0
+VAR bravery_points = 0
+VAR is_scared = false
 
 -> introduction
 
@@ -59,6 +61,7 @@ The cliff drops sharply to the churning sea below. Gulls wheel overhead, and you
 + [The Tide Pools] -> tide_pools
 + [The Fishing Rocks] -> fishing_rocks
 + [The Old Lighthouse] -> lighthouse
++ [Dark Cave in the cliff face] -> dark_cave
 + [Return to your nest] -> the_nest
 
 === family_check ===
@@ -302,34 +305,360 @@ Your adventure is just beginning...
 
 // Placeholder scenes - expand these or add new ones!
 
-=== family_check ===
-This is a placeholder - content coming soon!
--> END
-
-=== nest_examine ===
-This is a placeholder - content coming soon!
--> END
-
-=== family_check ===
-This is a placeholder - content coming soon!
--> END
-
 === watch_ships ===
-This is a placeholder - content coming soon!
--> END
+You settle in to watch the ships pass on the horizon. The sun is warm, the breeze gentle. It's peaceful.
+
+Too peaceful.
+
+A sudden chill makes you shiver. The wind has changed direction, carrying a faint... crying sound?
+
+You look around. The other puffins have gone. The rocks are empty. You're alone.
+
+The crying grows louder—a mournful wailing that seems to come from the sea itself. Then you see it: a ship on the horizon, but wrong somehow. It looks... old. Ancient. Its sails are tattered, hanging like ghostly rags.
+
+*The Ghost Ship*, Old Salt's stories whisper in your memory. *The one that sank fifty years ago, taking all hands with it...*
+
+The ship isn't moving with the wind. It's moving against it. Toward the island. Toward YOU.
+
+Your feathers freeze. You can't move. The wailing grows louder, and now you can hear voices—dozens of voices calling your name...
+
+"{player_name}... {player_name}... join us..."
+
++ [Run!]
+    ~ is_scared = true
+    You scramble up the rocks, wings flapping uselessly, heart hammering. You don't stop until you're back in your nest, buried under a pile of soft grass, trembling.
+    
+    It takes hours for your heart to slow. When you finally peek out... the ship is gone. Just a normal evening. Maybe it was just a trick of the light?
+    -> END
+    
++ [Hide and watch]
+    ~ bravery_points = bravery_points + 1
+    You force yourself to stay still, tucked behind a rock. The ghost ship grows closer... closer...
+    
+    Then you notice something. The "sails" are catching the sunset at a strange angle. They're not ragged at all—they're just regular sails, illuminated by the golden light. And the "wailing"? Just wind through the rigging of a cargo ship carrying metal pipes.
+    
+    You laugh at your own imagination. But you watch until it passes, just to be sure.
+    -> cliff_edge
+    
++ [Call back to the voices]
+    ~ bravery_points = bravery_points + 2
+    "Hello!" you shout. "I'm {player_name}! Who are you?"
+    
+    The voices stop. There's a long pause. Then—laughter. Familiar laughter!
+    
+    "Got you!" your cousin calls out from behind a rock, holding a conch shell. The "ghost ship" is just the fishing trawler with its nets deployed.
+    
+    "You should see your face!" your cousin cackles.
+    
+    You chase them around the rocks, laughing despite your racing heart. "I'll get you back for this!"
+    -> cliff_edge
+
+=== dark_cave ===
+A narrow opening in the cliff reveals a passage leading down into darkness. Cold air breathes from within, carrying the scent of salt and something... ancient.
+
+You venture inside. The light from the entrance fades quickly. Soon you're feeling your way along wet stone walls, your own breathing loud in your ears.
+
+*Drip... drip... drip...*
+
+Water falls somewhere in the darkness. The sound echoes strangely—almost like footsteps following you.
+
+You stop. The dripping stops too.
+
+You walk. The dripping resumes.
+
+*Drip... drip... drip...*
+
+Matching your pace perfectly.
+
+Your feathers bristle. Is something following you? Something that stops when you stop?
+
+Then you see it—a faint glow ahead. Blue-green light pulsing softly. As you approach, the cave opens into a cathedral of stone.
+
+Stalactites hang like monster teeth. The walls glitter with glowing fungus, casting twisted shadows that seem to move on their own.
+
+And in the center, on a stone pedestal...
+
+A skull.
+
+A bird skull, picked clean by time, staring at you with empty eye sockets.
+
+*Welcome...* something whispers.
+
++ [Scream and run!]
+    ~ is_scared = true
+    You don't think. You just RUN. Wings flapping, feet scrambling on stone, you bolt for the entrance as fast as you can go.
+    
+    Behind you, the whisper seems to follow: *Wait... come back...*
+    
+    You burst into daylight, gasping, and don't stop running until you're back at your nest. Whatever is in that cave... it can stay there.
+    -> END
+
++ [Approach the skull carefully]
+    ~ bravery_points = bravery_points + 1
+    "H-hello?" you stammer.
+    
+    The whisper comes again: *Welcome... to the Hall of Echoes...*
+    
+    You edge closer. The skull is just bone, old and brittle. But behind it, you notice something—a mechanism. A lever made of driftwood.
+    
+    You pull it.
+    
+    *CLICK*
+    
+    A section of wall grinds open, revealing a hidden chamber filled with... books! Old Salt's lost library! The "skull" is just a decoration, and the "whisper" is wind through cleverly placed holes in the stone.
+    
+    You've discovered Old Salt's secret study!
+    -> treasure_hunt
+
++ [Talk to the skull]
+    ~ bravery_points = bravery_points + 2
+    "Nice cave you've got here," you say, trying to sound casual despite your shaking voice. "Very... atmospheric."
+    
+    The whisper chuckles. *Brave little puffin. Few speak to the Guardian of the Deep.*
+    
+    "I'm {player_name}. What's your name?"
+    
+    A long pause. Then: *I... I don't remember. It's been so long...*
+    
+    You step closer. The skull isn't magical—it's just old. But behind it, you find a metal name tag on a chain: "CAPTAIN BLACKBEAK, 1876."
+    
+    "Captain Blackbeak," you read aloud. "I found your name."
+    
+    The wind through the holes sounds almost... grateful.
+    
+    As you explore the chamber, you realize this was Blackbeak's final resting place. You say a little prayer for the old pirate bird, then search his belongings. You find an old compass and a note about buried treasure.
+    
+    "Thank you, Captain," you whisper.
+    
+    The wind whispers back: *Safe travels, brave one...*
+    -> treasure_hunt
 
 === follow_crab ===
-This is a placeholder - content coming soon!
--> END
+You hop after the crab, curiosity getting the better of you. It scuttles across the rocks toward a dark crevice in the cliff face—a narrow crack you never noticed before.
+
+The crab disappears inside. You hesitate at the entrance. It's pitch black in there, and cold air breathes out like the cliff itself is sighing.
+
+But you've come this far. You squeeze through.
+
+Darkness envelops you. You can barely see your own feet. The only sound is the click-click-click of the crab's claws ahead and the distant drip... drip... drip of water.
+
+*Hello...*
+
+You freeze. Was that a voice? It seemed to come from everywhere at once, echoing off the stone walls.
+
+*Hello... hello... hello...*
+
+The echo makes your feathers bristle. The crab has stopped. It's waiting, claws raised, looking at something ahead.
+
+A faint blue glow appears in the distance, pulsing slowly like a heartbeat.
+
++ [Turn back!]
+    ~ is_scared = true
+    This is too creepy. You back out of the tunnel as fast as your wings can carry you, not stopping until you're back in the sunlight.
+    
+    The crab follows you out, looking disappointed. It drops the message at your feet and scuttles away.
+    
+    The message just says: "Follow the light."
+    -> rest_on_rocks
+    
++ [Keep following the crab]
+    ~ bravery_points = bravery_points + 1
+    You take a deep breath and waddle forward. The blue glow grows brighter as you approach.
+    
+    The tunnel opens into a small cavern. The walls are covered in glowing blue mushrooms! They pulse gently, lighting up the whole space.
+    
+    "Beautiful..." you whisper.
+    
+    *Beautiful... beautiful... beautiful...*
+    
+    The echo makes you jump, then laugh. It was just your own voice bouncing off the walls!
+    
+    The crab taps a stone, revealing a hidden compartment with an old journal inside. It's Old Salt's research notes about the bioluminescent fungi.
+    
+    You tuck it in your satchel to return to him.
+    -> treasure_hunt
+    
++ [Call out to the voice]
+    ~ bravery_points = bravery_points + 2
+    "Who's there?" you call into the darkness.
+    
+    *Who's there... who's there... who's there...*
+    
+    The echo mocks you. But then—another sound. Flapping wings!
+    
+    "{player_name}? What are you doing in here?"
+    
+    It's Aunt Mabel! She was collecting mushrooms for her evening stew.
+    
+    "These caves can be confusing," she says, lighting her way with a glowing mushroom. "Let me show you the way out."
+    
+    She leads you through a shortcut that brings you right to the lighthouse!
+    -> lighthouse
 
 === peek_lighthouse ===
-This is a placeholder - content coming soon!
--> END
+You press your face against the cold glass of the lighthouse window. The room inside is dark... too dark.
+
+Suddenly—
+
+*SCRAPE*
+
+A sound from upstairs makes you jump! Your feathers puff up in alarm.
+
+Through the gloom, you see shadows moving on the wall. Long, twisted shadows that stretch and reach like fingers. They seem to be coming from the spiral staircase.
+
+*CREEEAK...*
+
+The sound of footsteps on old wood. Slow. Deliberate. Coming down the stairs.
+
+A flickering light appears at the top of the staircase—a ghostly blue glow that shouldn't be there. The lighthouse lamp hasn't worked in years...
+
+{player_name}'s heart pounds. 
+
++ [Run away!]
+    ~ is_scared = true
+    You back away from the window, wings trembling. Whatever is in there... you don't want to meet it.
+    -> cliff_edge
+    
++ [Knock on the window]
+    ~ bravery_points = bravery_points + 1
+    You tap the glass with your beak. "Hello?"
+    
+    The shadows freeze. The footsteps stop. Then—
+    
+    "{player_name}? Is that you?"
+    
+    It's Mum's voice! Relief washes over you as the shadows resolve into normal shapes. Mum appears at the window, holding an old lantern.
+    
+    "You gave us quite a scare, peeking in like that! Come inside, dear."
+    -> enter_lighthouse
+    
++ [Watch longer]
+    You stay perfectly still, barely breathing.
+    
+    The blue light flickers and moves down the stairs. The shadows dance across the walls. You can make out two distinct shapes now, moving together.
+    
+    Then you hear it—familiar voices. Mum and Dad! They're carrying something that glows with that strange blue light.
+    
+    "Bioluminescent algae," Dad is saying. "Old Salt's been collecting it for his studies."
+    
+    You let out a breath you didn't know you were holding. Just your parents, not ghosts at all!
+    -> enter_lighthouse
 
 === wait_outside ===
-This is a placeholder - content coming soon!
--> END
+You settle onto a rock outside the lighthouse to wait. The sun is beginning to set, painting the sky in deep oranges and purples.
+
+But as the light fades, something changes. A thick fog rolls in from the sea, silent and cold. It swirls around your feet, then your wings, then your beak.
+
+Soon, you can barely see your own claws.
+
+*WHOOOOOSH*
+
+The wind picks up, making strange whistling sounds through the lighthouse's broken windows. It almost sounds like... voices? Whispering voices, too quiet to understand.
+
+Then—
+
+*Pitter-patter... pitter-patter...*
+
+Footsteps! Small, quick footsteps circling around you in the fog. Something is out there, watching you. You can feel eyes on your back.
+
+Two glowing spots appear in the fog, about eye-level. They blink slowly. Yellow. Predatory.
+
+Your feathers stand on end. 
+
++ [Call for help!]
+    ~ bravery_points = bravery_points + 1
+    "MUM! DAD!" you cry out.
+    
+    The lighthouse door bursts open. "{player_name}!"
+    
+    The glowing eyes vanish instantly. As the fog clears slightly, you see it was just... Old Salt's cat, Midnight, out for an evening prowl.
+    
+    Dad scoops you up. "Brave little puffin, calling for help. Come inside, it's getting dark."
+    -> enter_lighthouse
+    
++ [Hide behind the rock]
+    ~ is_scared = true
+    You scramble behind the rock, heart hammering. The footsteps circle closer... closer...
+    
+    Then a rough tongue licks your wing!
+    
+    You squawk and tumble backward—right into Dad's wings.
+    
+    "Easy there, {player_name}," Dad laughs. "It's just Midnight, Old Salt's cat."
+    
+    The black cat purrs and rubs against your leg. Those scary glowing eyes were just reflecting the sunset!
+    -> enter_lighthouse
+    
++ [Face whatever it is]
+    ~ bravery_points = bravery_points + 2
+    You puff up your chest and step forward. "Show yourself!"
+    
+    The fog parts—and a skinny black cat walks out, meowing pitifully. It's shivering in the cold.
+    
+    "Oh, you poor thing," you say, all fear forgotten. You nudge the cat toward the lighthouse door with your beak.
+    
+    Dad opens the door and laughs. "Well, well, {player_name} the Brave, protector of lost cats! That's Midnight. Come inside, both of you."
+    -> enter_lighthouse
 
 === lighthouse_mystery ===
-This is a placeholder - content coming soon!
--> END
+The sun touches the horizon, painting everything in shades of gold and purple. You, Mum, and Dad wait near the lighthouse, watching for whoever "C" might be.
+
+*CRACK!*
+
+A branch snaps in the bushes nearby. All three of you whirl around.
+
+"Show yourself!" Dad calls out, trying to sound brave.
+
+Silence. Then... footsteps. Heavy, slow footsteps crunching on gravel.
+
+A massive shape detaches itself from the shadows. It towers over you—twice your height, with broad wings and a sharp beak silhouetted against the sunset.
+
+It's the biggest bird you've ever seen.
+
+"C..." the figure says in a deep, rumbling voice. "Come alone, the message said. Yet you bring... company."
+
+Your feathers stand on end. This is terrifying! The creature steps closer, and you can see it has something in its claws. Something sharp and metal...
+
+"Stay back!" Mum warns, spreading her wings protectively.
+
+The figure stops. Then...
+
+It laughs. A warm, grandmotherly laugh.
+
+"Oh my! Did I scare you little puffins? I'm so sorry!"
+
+She steps into the fading light. She's a magnificent old cormorant with silver-tipped feathers, holding a metal tea strainer.
+
+"I'm Coral," she says with a bow. "Old Salt's sister. I wanted to surprise him with tea and biscuits, but I couldn't find the lighthouse in this fog!"
+
+Dad deflates with relief. "You nearly gave us heart attacks, Coral!"
+
+"The dramatic entrance wasn't intentional, I promise!" She chuckles. "Though I must say, {player_name}, you stood your ground admirably. Very brave."
+
+~ bravery_points = bravery_points + 1
+
++ [Ask about the mysterious message]
+    "Why the secret message, then?"
+    
+    Coral looks sheepish. "I found that bottle on the beach weeks ago. I thought it would be funny to send a mysterious note to my brother. I didn't know a young puffin would find it!"
+    
+    She ruffles your feathers affectionately. "But I'm glad you did. Brave enough to follow a mystery, smart enough to bring help. Old Salt will want to meet you."
+    -> meet_old_salt
+
++ [Accept her apology]
+    "You really did scare me," you admit.
+    
+    "I'm truly sorry, little one," Coral says sincerely. "Let me make it up to you with some of my famous seaweed biscuits?"
+    
+    The promise of biscuits makes everything better. You follow her into the lighthouse, where Old Salt is waiting with hot tea and stories.
+    -> old_salt_stories
+
++ [Stay cautious]
+    You eye her suspiciously. "How do we know you're really Old Salt's sister?"
+    
+    Coral smiles and pulls out a locket. Inside is a faded photo of two young birds—young Salt and young Coral, standing in front of this very lighthouse.
+    
+    "We built this place together," she says softly. "Before the war. Before... everything."
+    
+    The sadness in her voice is real. You believe her.
+    -> meet_old_salt
